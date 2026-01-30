@@ -1,0 +1,69 @@
+.hero {
+  position: relative;
+  margin-top: 24px;
+  height: 696px; /* можна підкрутити */
+  border-radius: 0;
+  overflow: hidden;
+
+  background-image: url('/hero.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 60%);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  padding: 60px 64px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 571px;
+  gap: 40px;
+}
+
+.title {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 32px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.text {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  color: #ffffff;
+
+  white-space: nowrap;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 173px;
+  height: 56px;
+
+  border-radius: 200px;
+  background: #e44848;
+  color: #ffffff;
+
+  font-weight: 500; /* було 600 */
+  font-size: 16px;
+  text-decoration: none;
+}

@@ -1,0 +1,161 @@
+.card {
+  display: grid;
+  grid-template-columns: 292px 1fr;
+  gap: 24px;
+
+  padding: 24px;
+  border: 1px solid #eaecf0;
+  border-radius: 20px;
+  background: #ffffff;
+}
+
+.imageWrap {
+  width: 292px;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f2f4f7;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.headerRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.title {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #101828;
+
+  max-width: 420px;
+}
+
+.priceFav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+
+.price {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #101828;
+  white-space: nowrap;
+}
+
+.favBtn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  color: #101828;
+}
+
+.heart {
+  width: 24px;
+  height: 24px;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 16px;
+  color: #475467;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.star {
+  color: #ffc531;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: #101828;
+  flex: 0 0 auto;
+}
+
+.desc {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 16px;
+  color: #475467;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 12px 18px;
+  border-radius: 100px;
+  background: #f2f4f7;
+
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #101828;
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #101828;
+  flex: 0 0 auto;
+}
+
+.moreBtn {
+  margin-top: auto;
+  width: 166px;
+  height: 56px;
+
+  border: none;
+  border-radius: 200px;
+  background: #e44848;
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
