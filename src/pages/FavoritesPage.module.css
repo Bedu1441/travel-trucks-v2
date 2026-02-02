@@ -1,0 +1,43 @@
+.page {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px 64px;
+}
+
+.headerRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #101828;
+}
+
+.hint {
+  margin: 0;
+  color: #475467;
+}
+
+.list {
+  display: grid;
+  gap: 24px;
+}
+
+.emptyBox {
+  border: 1px solid #f2f4f7;
+  border-radius: 12px;
+  padding: 16px;
+  color: #475467;
+}
+
+.link {
+  color: #e44848;
+  text-decoration: none;
+  font-weight: 600;
+}

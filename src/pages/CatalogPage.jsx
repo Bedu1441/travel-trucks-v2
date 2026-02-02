@@ -9,6 +9,18 @@ import { setLocation, setVehicleType, toggleEquipment } from '../store/filtersSl
 
 import { selectFilteredCampers } from '../store/selectors';
 
+// ✅ FILTER ICONS (equipment)
+import IconAC from '../assets/icons/filters/AC.svg';
+import IconAutomatic from '../assets/icons/filters/Automatic.svg';
+import IconKitchen from '../assets/icons/filters/Kitchen.svg';
+import IconTV from '../assets/icons/filters/TV.svg';
+import IconBathroom from '../assets/icons/filters/Bathroom.svg';
+
+// ✅ VEHICLE TYPE ICONS
+import IconVan from '../assets/icons/vehicle/Van.svg';
+import IconFullyIntegrated from '../assets/icons/vehicle/FullyIntegrated.svg';
+import IconAlcove from '../assets/icons/vehicle/Alcove.svg';
+
 export default function CatalogPage() {
   const dispatch = useDispatch();
 
@@ -34,7 +46,6 @@ export default function CatalogPage() {
   };
 
   const isEqActive = (key) => equipment.includes(key);
-
   const showNoResults = !isLoading && !error && Array.isArray(items) && items.length === 0;
 
   return (
@@ -75,7 +86,9 @@ export default function CatalogPage() {
               onClick={() => dispatch(toggleEquipment('AC'))}
               disabled={isLoading}
             >
-              <span className={css.chipIcon}>*</span>
+              <span className={css.chipIcon}>
+                <img src={IconAC} alt="" aria-hidden="true" />
+              </span>
               AC
             </button>
 
@@ -85,7 +98,9 @@ export default function CatalogPage() {
               onClick={() => dispatch(toggleEquipment('transmission'))}
               disabled={isLoading}
             >
-              <span className={css.chipIcon}>⚙</span>
+              <span className={css.chipIcon}>
+                <img src={IconAutomatic} alt="" aria-hidden="true" />
+              </span>
               Automatic
             </button>
 
@@ -95,7 +110,9 @@ export default function CatalogPage() {
               onClick={() => dispatch(toggleEquipment('kitchen'))}
               disabled={isLoading}
             >
-              <span className={css.chipIcon}>☕</span>
+              <span className={css.chipIcon}>
+                <img src={IconKitchen} alt="" aria-hidden="true" />
+              </span>
               Kitchen
             </button>
 
@@ -105,7 +122,9 @@ export default function CatalogPage() {
               onClick={() => dispatch(toggleEquipment('TV'))}
               disabled={isLoading}
             >
-              <span className={css.chipIcon}>▢</span>
+              <span className={css.chipIcon}>
+                <img src={IconTV} alt="" aria-hidden="true" />
+              </span>
               TV
             </button>
 
@@ -115,7 +134,9 @@ export default function CatalogPage() {
               onClick={() => dispatch(toggleEquipment('bathroom'))}
               disabled={isLoading}
             >
-              <span className={css.chipIcon}>⌁</span>
+              <span className={css.chipIcon}>
+                <img src={IconBathroom} alt="" aria-hidden="true" />
+              </span>
               Bathroom
             </button>
           </div>
@@ -128,7 +149,9 @@ export default function CatalogPage() {
               onClick={() => dispatch(setVehicleType('van'))}
               disabled={isLoading}
             >
-              <span className={css.chipIcon}>▭</span>
+              <span className={css.chipIcon}>
+                <img src={IconVan} alt="" aria-hidden="true" />
+              </span>
               Van
             </button>
 
@@ -138,7 +161,9 @@ export default function CatalogPage() {
               onClick={() => dispatch(setVehicleType('fullyIntegrated'))}
               disabled={isLoading}
             >
-              <span className={css.chipIcon}>▦</span>
+              <span className={css.chipIcon}>
+                <img src={IconFullyIntegrated} alt="" aria-hidden="true" />
+              </span>
               Fully Integrated
             </button>
 
@@ -148,17 +173,14 @@ export default function CatalogPage() {
               onClick={() => dispatch(setVehicleType('alcove'))}
               disabled={isLoading}
             >
-              <span className={css.chipIcon}>≡</span>
+              <span className={css.chipIcon}>
+                <img src={IconAlcove} alt="" aria-hidden="true" />
+              </span>
               Alcove
             </button>
           </div>
 
-          <button
-            className={css.searchBtn}
-            type="button"
-            onClick={onSearch}
-            disabled={isLoading}
-          >
+          <button className={css.searchBtn} type="button" onClick={onSearch} disabled={isLoading}>
             Search
           </button>
         </div>
