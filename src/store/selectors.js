@@ -1,33 +1,49 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-export const selectCampersItems = (state) => state.campers.items;
-export const selectFilters = (state) => state.filters;
+export const selectCampersItems = (state) => state.campers?.items ?? [];
+export const selectFilters = (state) => state.filters ?? {};
+export const selectFavoriteIdsMap = (state) => state.favorites?.ids ?? {};
+
+const normalizeText = (v) => String(v ?? '').trim().toLowerCase();
 
 export const selectFilteredCampers = createSelector(
   [selectCampersItems, selectFilters],
-  (items, filters) => {
-    const location = (filters.location || '').trim().toLowerCase();
-    const vehicleType = filters.vehicleType || '';
+  (itemsRaw, filters) => {
+    const items = Array.isArray(itemsRaw) ? itemsRaw : [];
+
+    const location = normalizeText(filters.location);
+    const vehicleType = String(filters.vehicleType ?? ''); // UI value
     const equipment = Array.isArray(filters.equipment) ? filters.equipment : [];
 
-    return (Array.isArray(items) ? items : []).filter((camper) => {
-      // location (в API у тебе "location": "Ukraine, Kyiv" etc)
+    return items.filter((camper) => {
+      if (!camper) return false;
+
+      // 1) location: підрядок, case-insensitive
       if (location) {
-        const camperLoc = (camper.location || '').toLowerCase();
+        const camperLoc = normalizeText(camper.location);
         if (!camperLoc.includes(location)) return false;
       }
 
-      // vehicle type (в API це поле "form")
+      // 2) vehicle type: в API поле "form"
       if (vehicleType) {
-        if ((camper.form || '') !== vehicleType) return false;
+        if (String(camper.form ?? '') !== vehicleType) return false;
       }
 
-      // equipment (AC, bathroom, kitchen, TV, radio, refrigerator, microwave, gas, water...)
+      // 3) equipment: AND-логіка (всі вибрані ключі мають бути truthy)
       for (const key of equipment) {
-        if (!camper[key]) return false; // якщо AC=true треба щоб camper.AC === true
+        if (!camper?.[key]) return false;
       }
 
       return true;
     });
+  }
+);
+
+// Для /favorites (показує тільки ті, що вже завантажені в items)
+export const selectFavoriteCampers = createSelector(
+  [selectCampersItems, selectFavoriteIdsMap],
+  (itemsRaw, favMap) => {
+    const items = Array.isArray(itemsRaw) ? itemsRaw : [];
+    return items.filter((c) => c?.id != null && !!favMap[String(c.id)]);
   }
 );

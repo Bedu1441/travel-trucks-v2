@@ -1,26 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const LS_KEY = 'traveltrucks_favorites';
-
-function loadFavorites() {
-  try {
-    const raw = localStorage.getItem(LS_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveFavorites(ids) {
-  try {
-    localStorage.setItem(LS_KEY, JSON.stringify(ids));
-  } catch {
-    // ignore
-  }
-}
-
 const initialState = {
-  ids: loadFavorites(),
+  ids: {}, // { "12": true }
 };
 
 const favoritesSlice = createSlice({
@@ -28,20 +9,24 @@ const favoritesSlice = createSlice({
   initialState,
   reducers: {
     toggleFavorite(state, action) {
-      const id = action.payload;
-      if (state.ids.includes(id)) {
-        state.ids = state.ids.filter((x) => x !== id);
-      } else {
-        state.ids.push(id);
-      }
-      saveFavorites(state.ids);
+      const id = String(action.payload);
+      if (state.ids[id]) delete state.ids[id];
+      else state.ids[id] = true;
     },
     clearFavorites(state) {
-      state.ids = [];
-      saveFavorites(state.ids);
+      state.ids = {};
+    },
+    setFavorites(state, action) {
+      // для відновлення з localStorage
+      state.ids = action.payload?.ids ?? {};
     },
   },
 });
 
-export const { toggleFavorite, clearFavorites } = favoritesSlice.actions;
+export const { toggleFavorite, clearFavorites, setFavorites } = favoritesSlice.actions;
 export default favoritesSlice.reducer;
+
+// selectors
+export const selectFavoriteIdsMap = (state) => state.favorites?.ids ?? {};
+export const makeSelectIsFavorite = (id) => (state) =>
+  !!(state.favorites?.ids ?? {})[String(id)];

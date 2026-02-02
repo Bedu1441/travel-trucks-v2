@@ -4,11 +4,11 @@ import css from './MainLayout.module.css';
 
 export default function MainLayout() {
   return (
-    <>
+    <div className={css.wrapper}>
       <Header />
       <main className={css.main}>
         <Outlet />
       </main>
-    </>
+    </div>
   );
 }

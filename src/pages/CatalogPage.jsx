@@ -13,24 +13,29 @@ export default function CatalogPage() {
   const dispatch = useDispatch();
 
   const items = useSelector(selectFilteredCampers);
-  const hasMore = useSelector((state) => state.campers.hasMore);
-  const isLoading = useSelector((state) => state.campers.isLoading);
-  const error = useSelector((state) => state.campers.error);
+  const hasMore = useSelector((state) => !!state.campers?.hasMore);
+  const isLoading = useSelector((state) => !!state.campers?.isLoading);
+  const error = useSelector((state) => state.campers?.error);
 
-  const location = useSelector((state) => state.filters.location);
-  const vehicleType = useSelector((state) => state.filters.vehicleType);
-  const equipment = useSelector((state) => state.filters.equipment);
+  const location = useSelector((state) => state.filters?.location ?? '');
+  const vehicleType = useSelector((state) => state.filters?.vehicleType ?? '');
+  const equipment = useSelector((state) =>
+    Array.isArray(state.filters?.equipment) ? state.filters.equipment : []
+  );
 
   useEffect(() => {
     dispatch(fetchCampers({ mode: 'replace' }));
   }, [dispatch]);
 
   const onSearch = () => {
+    if (isLoading) return;
     dispatch(resetCampers());
     dispatch(fetchCampers({ mode: 'replace' }));
   };
 
   const isEqActive = (key) => equipment.includes(key);
+
+  const showNoResults = !isLoading && !error && Array.isArray(items) && items.length === 0;
 
   return (
     <section className={css.page}>
@@ -68,6 +73,7 @@ export default function CatalogPage() {
               className={`${css.chip} ${isEqActive('AC') ? css.chipActive : ''}`}
               type="button"
               onClick={() => dispatch(toggleEquipment('AC'))}
+              disabled={isLoading}
             >
               <span className={css.chipIcon}>*</span>
               AC
@@ -77,6 +83,7 @@ export default function CatalogPage() {
               className={`${css.chip} ${isEqActive('transmission') ? css.chipActive : ''}`}
               type="button"
               onClick={() => dispatch(toggleEquipment('transmission'))}
+              disabled={isLoading}
             >
               <span className={css.chipIcon}>⚙</span>
               Automatic
@@ -86,6 +93,7 @@ export default function CatalogPage() {
               className={`${css.chip} ${isEqActive('kitchen') ? css.chipActive : ''}`}
               type="button"
               onClick={() => dispatch(toggleEquipment('kitchen'))}
+              disabled={isLoading}
             >
               <span className={css.chipIcon}>☕</span>
               Kitchen
@@ -95,6 +103,7 @@ export default function CatalogPage() {
               className={`${css.chip} ${isEqActive('TV') ? css.chipActive : ''}`}
               type="button"
               onClick={() => dispatch(toggleEquipment('TV'))}
+              disabled={isLoading}
             >
               <span className={css.chipIcon}>▢</span>
               TV
@@ -104,6 +113,7 @@ export default function CatalogPage() {
               className={`${css.chip} ${isEqActive('bathroom') ? css.chipActive : ''}`}
               type="button"
               onClick={() => dispatch(toggleEquipment('bathroom'))}
+              disabled={isLoading}
             >
               <span className={css.chipIcon}>⌁</span>
               Bathroom
@@ -116,6 +126,7 @@ export default function CatalogPage() {
               className={`${css.chip} ${vehicleType === 'van' ? css.chipActive : ''}`}
               type="button"
               onClick={() => dispatch(setVehicleType('van'))}
+              disabled={isLoading}
             >
               <span className={css.chipIcon}>▭</span>
               Van
@@ -125,6 +136,7 @@ export default function CatalogPage() {
               className={`${css.chip} ${vehicleType === 'fullyIntegrated' ? css.chipActive : ''}`}
               type="button"
               onClick={() => dispatch(setVehicleType('fullyIntegrated'))}
+              disabled={isLoading}
             >
               <span className={css.chipIcon}>▦</span>
               Fully Integrated
@@ -134,13 +146,19 @@ export default function CatalogPage() {
               className={`${css.chip} ${vehicleType === 'alcove' ? css.chipActive : ''}`}
               type="button"
               onClick={() => dispatch(setVehicleType('alcove'))}
+              disabled={isLoading}
             >
               <span className={css.chipIcon}>≡</span>
               Alcove
             </button>
           </div>
 
-          <button className={css.searchBtn} type="button" onClick={onSearch}>
+          <button
+            className={css.searchBtn}
+            type="button"
+            onClick={onSearch}
+            disabled={isLoading}
+          >
             Search
           </button>
         </div>
@@ -150,6 +168,12 @@ export default function CatalogPage() {
       <div className={css.results}>
         {isLoading && <div className={css.loader}>Loading…</div>}
         {!!error && <div className={css.error}>Error: {error}</div>}
+
+        {showNoResults && (
+          <div className={css.noResults}>
+            No campers match your filters. Try changing filters or click “Load more”.
+          </div>
+        )}
 
         {items.map((camper) => (
           <CamperCard key={camper.id} camper={camper} />

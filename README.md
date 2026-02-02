@@ -1,16 +1,88 @@
-# React + Vite
+# TravelTrucks v2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend application for camper rental service.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## React Compiler
+React app with modern tooling.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React + Vite — fast frontend setup
+- Redux Toolkit — global state management
+- React Router — client-side routing
+- Axios — API requests
+- CSS Modules — scoped component styles
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Live Demo
+
+Deployed production version.
+
+(add Vercel / Netlify link here)
+
+---
+
+## API
+
+External mock backend.
+
+- Base URL: https://66b1f8e71ca8ad33d4f5f63e.mockapi.io
+- GET /campers — campers list
+- GET /campers/:id — camper details
+
+---
+
+## Pages & Routes
+
+Main application pages.
+
+- `/` — Home page with banner
+- `/catalog` — Campers catalog
+- `/catalog/:id` — Camper details
+- `/favorites` — Saved campers
+
+---
+
+## Features
+
+Core user functionality.
+
+- Campers list with pagination
+- Client-side filtering
+- Favorites with persistence
+- Camper details page
+- Photo gallery
+- Reviews display
+- Booking form with notification
+- Loader and error handling
+
+---
+
+## State Management
+
+Redux-based global state.
+
+- Campers list & pagination
+- Filters state
+- Favorites persisted in localStorage
+
+---
+
+## Run Locally
+
+Local development setup.
+
+```bash
+npm install
+npm run dev
+Build
+Production build.
+
+npm run build
+Lint
+Code quality check.
+
+npm run lint
+```
